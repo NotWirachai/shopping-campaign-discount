@@ -60,7 +60,6 @@ npm run dev
 - React
 - TypeScript
 - Ant Design
-- SCSS
 
 ## การพัฒนาเพิ่มเติม
 
