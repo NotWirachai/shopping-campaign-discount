@@ -1,0 +1,203 @@
+.container{
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+}
+
+.app-container {
+  max-width: 1000px;
+  padding: 2rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+  h2 {
+    color: #2c3e50;
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+  }
+}
+
+.add-item-form {
+  background: #f8f9fa;
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+
+  h3 {
+    color: #2c3e50;
+    margin-bottom: 1rem;
+  }
+
+  input, select {
+    padding: 8px 12px;
+    margin-right: 12px;
+    border: 1px solid #dee2e6;
+    border-radius: 6px;
+    font-size: 0.95rem;
+
+    &:focus {
+      outline: none;
+      border-color: #4dabf7;
+      box-shadow: 0 0 0 2px rgba(77, 171, 247, 0.2);
+    }
+  }
+
+  button {
+    background-color: #339af0;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:hover {
+      background-color: #228be6;
+      transform: translateY(-1px);
+    }
+  }
+}
+
+.cart-items {
+  margin-bottom: 2rem;
+
+  ul {
+    list-style: none;
+    padding: 0;
+
+    li {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem;
+      margin-bottom: 0.5rem;
+      background: #f8f9fa;
+      border-radius: 8px;
+      transition: all 0.2s ease;
+
+      &:hover {
+        background: #e9ecef;
+      }
+
+      button {
+        background-color: #fa5252;
+        color: white;
+        border: none;
+        padding: 6px 12px;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+
+        &:hover {
+          background-color: #e03131;
+          transform: translateY(-1px);
+        }
+      }
+    }
+  }
+}
+
+.discounts-section {
+  background: #f8f9fa;
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+
+  .discounts-title {
+    color: #2c3e50;
+    margin-bottom: 1.5rem;
+  }
+
+  .discounts-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1rem;
+
+    .discount-item {
+      background: white;
+      padding: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+
+      .discount-checkbox {
+        margin-bottom: 1rem;
+      }
+
+      .discount-inputs {
+        margin-top: 0.5rem;
+
+        .discount-input-wrapper {
+          display: flex;
+          align-items: center;
+          margin-bottom: 0.5rem;
+
+          .discount-input-label {
+            min-width: 100px;
+            color: #495057;
+          }
+
+          .discount-number-input {
+            width: 120px;
+          }
+        }
+      }
+    }
+  }
+}
+
+.submit-btn {
+  background-color: #40c057;
+  color: white;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  width: 100%;
+  margin-bottom: 1rem;
+
+  &:hover {
+    background-color: #37b24d;
+    transform: translateY(-1px);
+  }
+}
+
+.discount-summary {
+  background: #e9ecef;
+  padding: 1.5rem;
+  border-radius: 8px;
+  text-align: right;
+
+  .discount-amount {
+    color: #fa5252;
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .final-total {
+    color: #2c3e50;
+    font-size: 1.3rem;
+    font-weight: bold;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    margin: 1rem;
+    padding: 1rem;
+  }
+
+  .add-item-form {
+    input, select, button {
+      width: 100%;
+      margin-bottom: 0.5rem;
+      margin-right: 0;
+    }
+  }
+
+  .discounts-list {
+    grid-template-columns: 1fr !important;
+  }
+}
