@@ -219,6 +219,7 @@ const AppDiscount: React.FC = () => {
                                                         <InputNumber
                                                             className="discount-number-input"
                                                             min={0}
+                                                            max={discount.type === "Points" ? 20 : undefined}
                                                             value={discountParams[discount.campaign]?.[param] || 0}
                                                             onChange={(value) => handleDiscountParamChange(discount.campaign, param, value)}
                                                         />
