@@ -67,56 +67,58 @@ const AppDiscount: React.FC = () => {
     const [selectedDiscount, setSelectedDiscount] = useState<DiscountRule[]>([]);
     const [discountAmount, setDiscountAmount] = useState(0);
     const [finalTotal, setFinalTotal] = useState(0);
-    const [discountParams, setDiscountParams] = useState<Record<string, Record<string, number>>>({});
+    const [discountParams, setDiscountParams] = useState<Record<string, Record<string, number | string>>>({});
 
     const calculateTotalPrice = () => {
         return cartItems.reduce((sum, item) => sum + item.price, 0);
     };
 
-    const handleDiscountParamChange = (campaign: string, param: string, value: number | null) => {
+    const handleDiscountParamChange = (campaign: string, param: string, value: number | string | null) => {
         setDiscountParams(prev => ({
             ...prev,
             [campaign]: {
                 ...(prev[campaign] || {}),
-                [param]: value || 0
+                [param]: value ?? (typeof value === "number" ? 0 : "")
             }
         }));
     };
+    
 
     const handleApplyDiscount = () => {
         let total = calculateTotalPrice();
         let totalDiscount = 0;
-
+    
         selectedDiscount.forEach(discount => {
             const params = discountParams[discount.campaign] || {};
-
+    
             switch (discount.type) {
                 case "Fixed":
-                    totalDiscount += params.amount || 0;
+                    totalDiscount += Number(params.amount) || 0;
                     break;
                 case "Percentage":
-                    totalDiscount += total * ((params.percentage || 0) / 100);
+                    totalDiscount += total * ((Number(params.percentage) || 0) / 100);
                     break;
                 case "CategoryPercentage":
                     const categoryTotal = cartItems
                         .filter(item => item.category === String(params.itemCategory))
                         .reduce((sum, item) => sum + item.price, 0);
-                    totalDiscount += categoryTotal * ((params.percentage || 0) / 100);
+                    totalDiscount += categoryTotal * ((Number(params.percentage) || 0) / 100);
                     break;
                 case "Points":
                     const maxPointDiscount = total * 0.2;
-                    totalDiscount += Math.min(params.points || 0, maxPointDiscount);
+                    totalDiscount += Math.min(Number(params.points) || 0, maxPointDiscount);
                     break;
                 case "EveryX":
-                    const times = Math.floor(total / (params.everyX || 1));
-                    totalDiscount += times * (params.discountY || 0);
+                    const times = Math.floor(total / (Number(params.everyX) || 1));
+                    totalDiscount += times * (Number(params.discountY) || 0);
                     break;
             }
         });
-
+    
         setDiscountAmount(totalDiscount);
         setFinalTotal(Math.max(0, total - totalDiscount));
     };
+    
 
     const handleAddItem = (e: React.FormEvent) => {
         e.preventDefault();
@@ -202,12 +204,25 @@ const AppDiscount: React.FC = () => {
                                             discount.ruleParameter.map((param, index) => (
                                                 <div key={index} className="discount-input-wrapper">
                                                     <span className="discount-input-label">{param}:</span>
-                                                    <InputNumber
-                                                        className="discount-number-input"
-                                                        min={0}
-                                                        value={discountParams[discount.campaign]?.[param] || 0}
-                                                        onChange={(value) => handleDiscountParamChange(discount.campaign, param, value)}
-                                                    />
+                                                    {discount.type === "CategoryPercentage" && param === "itemCategory" ? (
+                                                        <select
+                                                            value={discountParams[discount.campaign]?.[param] || ""}
+                                                            onChange={(e) => handleDiscountParamChange(discount.campaign, param, e.target.value)}
+                                                        >
+                                                            <option value="">Select Category</option>
+                                                            <option value="Clothing">Clothing</option>
+                                                            <option value="Accessories">Accessories</option>
+                                                            <option value="Electronics">Electronics</option>
+                                                            <option value="Groceries">Groceries</option>
+                                                        </select>
+                                                    ) : (
+                                                        <InputNumber
+                                                            className="discount-number-input"
+                                                            min={0}
+                                                            value={discountParams[discount.campaign]?.[param] || 0}
+                                                            onChange={(value) => handleDiscountParamChange(discount.campaign, param, value)}
+                                                        />
+                                                    )}
                                                 </div>
                                             ))
                                         }</div>
@@ -222,7 +237,7 @@ const AppDiscount: React.FC = () => {
                     Apply Discount
                 </button>
 
-                {discountAmount > 0 && (
+                {finalTotal > 0 && (
                     <div className="discount-summary">
                         <div className="discount-amount">Discount: -{discountAmount.toFixed(2) || 0} THB</div>
                         <div className="final-total">Final Total: {finalTotal.toFixed(2) || 0} THB</div>
