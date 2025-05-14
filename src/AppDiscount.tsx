@@ -138,7 +138,7 @@ const AppDiscount: React.FC = () => {
                 <h2>Shopping Cart</h2>
 
                 <form onSubmit={handleAddItem} className="add-item-form">
-                    <h3>Add New Item</h3>
+                    <h3>Add New Item {process.env.API_KEY}</h3>
                     <div>
                         <input
                             type="text"
