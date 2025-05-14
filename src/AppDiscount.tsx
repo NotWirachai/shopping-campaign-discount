@@ -131,14 +131,14 @@ const AppDiscount: React.FC = () => {
     const handleRemoveItem = (index: number) => {
         setCartItems(cartItems.filter((_, i) => i !== index));
     };
-
+console.log('first', import.meta?.env?.REACT_APP_API_KEY)
     return (
         <div className="container">
             <div className="app-container">
                 <h2>Shopping Cart</h2>
 
                 <form onSubmit={handleAddItem} className="add-item-form">
-                    <h3>Add New Item {process.env.API_KEY}</h3>
+                    <h3>Add New Item </h3>
                     <div>
                         <input
                             type="text"

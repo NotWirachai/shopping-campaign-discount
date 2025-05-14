@@ -1,4 +1,4 @@
-version: '3.9'
+version: '4.0'
 
 services:
   web:
@@ -6,7 +6,7 @@ services:
       context: .
       dockerfile: Dockerfile
     environment:
-      - API_KEY=test2
+      - REACT_APP_API_KEY=test2
     ports:
       - "5000:80"
     restart: unless-stopped 
