@@ -5,8 +5,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    environment:
-      - REACT_APP_API_KEY=test2
+      args:
+        REACT_APP_API_KEY: test2  # 👈 ส่งค่าเข้า Docker build
     ports:
       - "5000:80"
-    restart: unless-stopped 
+    restart: unless-stopped
