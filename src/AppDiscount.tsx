@@ -131,7 +131,8 @@ const AppDiscount: React.FC = () => {
     const handleRemoveItem = (index: number) => {
         setCartItems(cartItems.filter((_, i) => i !== index));
     };
-console.log('first', import.meta?.env?.REACT_APP_API_KEY)
+    console.log("API Key:", import.meta.env.VITE_API_KEY);
+
     return (
         <div className="container">
             <div className="app-container">

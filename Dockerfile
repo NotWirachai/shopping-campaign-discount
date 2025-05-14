@@ -8,8 +8,8 @@ RUN npm install
 COPY . .
 
 # 👇 เพิ่ม 2 บรรทัดนี้
-ARG REACT_APP_API_KEY
-ENV REACT_APP_API_KEY=$REACT_APP_API_KEY
+ARG VITE_API_KEY
+ENV VITE_API_KEY=$VITE_API_KEY
 
 RUN npm run build
 
